@@ -1,35 +1,77 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+type SubmenuItem = {
+  label: string;
+  href: string;
+  newTab?: boolean;
+};
+
+type MenuSection = {
+  id: string;
+  title: string;
+  items: SubmenuItem[];
+};
+
+const menu: MenuSection[] = [
+  {
+    id: 'dart',
+    title: 'Dart',
+    items: [
+      { label: 'Gra', href: '/dart', newTab: true },
+      { label: 'Liczenie', href: '/dart-count' },
+    ],
+  },
+];
+
+function MenuTile({ section }: { section: MenuSection }) {
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <section className="menu-tile">
+      <button
+        type="button"
+        className="tile-header"
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
+        <span className="tile-title">{section.title}</span>
+        <span className="tile-chevron" aria-hidden="true">
+          {isOpen ? '−' : '+'}
+        </span>
+      </button>
+
+      {isOpen && (
+        <ul className="tile-submenu">
+          {section.items.map((item) => (
+            <li key={item.label} className="submenu-item">
+              <a
+                href={item.href}
+                target={item.newTab ? '_blank' : undefined}
+                rel={item.newTab ? 'noreferrer' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
 }
 
-export default App
+function App() {
+  return (
+    <div className="app">
+      <div className="menu-container">
+        <h1 className="menu-title">MC Projects</h1>
+        <div className="menu-grid">
+          {menu.map((section) => (
+            <MenuTile key={section.id} section={section} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;
