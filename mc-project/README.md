@@ -70,6 +70,16 @@ cp -r dist/* /srv/http/mc-project/
 chown -R nginx:nginx /srv/http
 ```
 
+update:
+
+```bash
+sudo rm -rf /srv/http/mc-project/*
+sudo cp -r dist/* /srv/http/mc-project/
+sudo chown -R nginx:nginx /srv/http
+
+sudo rm -rf /srv/http/mc-project/* && sudo cp -r dist/* /srv/http/mc-project/ &&sudo chown -R nginx:nginx /srv/http
+```
+
 ### 6. Restart / reload Nginx (jeśli zmieniałeś config)
 
 Jeśli **nie zmieniałeś** plików konfiguracyjnych Nginx (deploy/nginx.mc-project.conf), wystarczy podmiana plików w /srv/http/mc-project – Nginx sam zacznie serwować nową wersję bez przeładowania.
