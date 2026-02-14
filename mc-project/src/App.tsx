@@ -18,8 +18,8 @@ const menu: MenuSection[] = [
     id: 'dart',
     title: 'Dart',
     items: [
-      { label: 'Gra', href: '/dart', newTab: true },
-      { label: 'Liczenie', href: '/dart-count' },
+      { label: 'Gra', href: '/dart/', newTab: true },
+      { label: 'Liczenie', href: '/dart-count/' },
     ],
   },
 ];
