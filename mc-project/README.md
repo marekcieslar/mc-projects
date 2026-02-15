@@ -65,6 +65,12 @@ Po tym w katalogu mc-project powstanie katalog dist/ z produkcyjnym buildem.
 Zakładamy, że Nginx serwuje mc-project z katalogu /srv/http/mc-project (tak jak w deploy/nginx.mc-project.conf).
 
 ```bash
+sudo cp /home/frog/apps/mc-projects/mc-project/deploy/nginx.mc-project.conf /etc/nginx/http.d/mc-project.conf
+sudo nginx -t
+sudo rc-service nginx reload
+```
+
+```bash
 mkdir -p /srv/http/mc-project
 cp -r dist/* /srv/http/mc-project/
 chown -R nginx:nginx /srv/http
@@ -77,7 +83,7 @@ sudo rm -rf /srv/http/mc-project/*
 sudo cp -r dist/* /srv/http/mc-project/
 sudo chown -R nginx:nginx /srv/http
 
-sudo rm -rf /srv/http/mc-project/* && sudo cp -r dist/* /srv/http/mc-project/ &&sudo chown -R nginx:nginx /srv/http
+rm -rf dist && npm run build && sudo rm -rf /srv/http/mc-project/* && sudo cp -r dist/* /srv/http/mc-project/ &&sudo chown -R nginx:nginx /srv/http
 ```
 
 ### 6. Restart / reload Nginx (jeśli zmieniałeś config)
